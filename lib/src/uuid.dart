@@ -38,7 +38,9 @@ class InvalidLengthException implements Exception {
 
 // A UUID is a 128 bit (16 byte) Universal Unique IDentifier as defined in RFC
 // 4122.
+@HiveType(typeId: 0, adapterName: 'UUIDAdapter') //Add this Line
 class UUID {
+  @HiveField(0)
   final Uint8List bytes;
 
   // UUID returns a Random (Version 4) UUID.
@@ -190,6 +192,9 @@ class UUID {
   @override
   bool operator ==(o) => o is UUID && ListEquality().equals(bytes, o.bytes);
 
+  @override
+  int get hashCode => Object.hashAll(bytes);
+
   // variant returns the variant encoded in uuid.
   Variant get variant {
     if ((bytes[8] & 0xc0) == 0x80) {
@@ -299,4 +304,28 @@ void enableRandPool() {
 void disableRandPool() {
   poolEnabled = false;
   poolPos = randPoolSize;
+}
+
+class UUIDConverter implements JsonConverter<UUID, String> {
+  const UUIDConverter();
+
+  @override
+  UUID fromJson(String json) {
+    return UUID.parse(json);
+  }
+
+  @override
+  String toJson(UUID uuid) => uuid.toString();
+}
+
+class NullableUUIDConverter implements JsonConverter<UUID?, String?> {
+  const NullableUUIDConverter();
+
+  @override
+  UUID? fromJson(String? json) {
+    return json == null ? null : UUID.parse(json);
+  }
+
+  @override
+  String? toJson(UUID? uuid) => uuid?.toString();
 }
