@@ -9,10 +9,8 @@ import 'package:json_annotation/json_annotation.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:convert/convert.dart';
-import 'package:hive/hive.dart';
 
 part 'src/dce.dart';
 part 'src/hash.dart';
-part 'buuid.g.dart';
 part 'src/uuid.dart';
 part 'src/util.dart';
