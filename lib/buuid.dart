@@ -5,7 +5,6 @@ import 'dart:convert';
 import 'dart:math';
 import 'dart:typed_data';
 import 'package:collection/collection.dart';
-import 'package:json_annotation/json_annotation.dart';
 import 'package:tuple/tuple.dart';
 
 import 'package:convert/convert.dart';
